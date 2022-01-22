@@ -12,7 +12,7 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'sample-app'
+      inheritFrom'sample-app'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -22,7 +22,7 @@ labels:
   component: ci
 spec:
   # Use service account that can deploy to all namespaces
-  serviceAccountName: cd-jenkins
+  # serviceAccountName: cd-jenkins
   containers:
   - name: java
     image: openjdk:latest
