@@ -5,7 +5,7 @@ pipeline {
     APP_NAME = "hello"
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "jenkins-cd"
-    CLUSTER_ZONE = "us-east1-d"
+    CLUSTER_ZONE = "us-central-c"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
@@ -24,8 +24,8 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
   containers:
-  - name: golang
-    image: golang:1.10
+  - name: java
+    image: openjdk:latest
     command:
     - cat
     tty: true
@@ -45,7 +45,7 @@ spec:
   stages {
     stage('Test') {
       steps {
-        container('golang') {
+        container('java') {
           sh """
             ln -s `pwd` /go/src/sample-app
             cd /go/src/sample-app
