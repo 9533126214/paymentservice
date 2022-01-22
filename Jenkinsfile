@@ -4,7 +4,7 @@ pipeline {
     PROJECT = "useful-cathode-334010"
     APP_NAME = "hello"
     FE_SVC_NAME = "${APP_NAME}-frontend"
-    CLUSTER = "jenkins-cd"
+    CLUSTER = "cluster1"
     CLUSTER_ZONE = "us-central-c"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
