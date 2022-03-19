@@ -2,17 +2,17 @@ pipeline {
 
   environment {
     PROJECT = "indigo-history-337312"
-    APP_NAME = "paymentservice"
-    FE_SVC_NAME = "${APP_NAME}-payment"
+    APP_NAME = "adservice"
+    FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "way2die"
-    CLUSTER_ZONE = "us-central-c"
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+    CLUSTER_ZONE = "us-central1-c"
+    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     JENKINS_CRED = "${PROJECT}"
   }
 
   agent {
     kubernetes {
-      inheritFrom'sample-app'
+      inheritFrom 'sample-app'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -24,18 +24,18 @@ spec:
   # Use service account that can deploy to all namespaces
   # serviceAccountName: cd-jenkins
   containers:
-  - name: node
-    image: node:16-alpine
+  - name: gradle-bld
+    image: openjdk:latest
     command:
     - cat
     tty: true
   - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk
     command:
     - cat
     tty: true
   - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
+    image: google/cloud-sdk
     command:
     - cat
     tty: true
@@ -43,13 +43,11 @@ spec:
 }
   }
   stages {
-    stage('build') {
+    stage('codebuild') {
       steps {
-        container('node') {
+        container('gradle-bld') {
           sh """
-            ln -s `pwd` /go/src/sample-app
-            cd /go/src/sample-app
-            go test
+             ls -a && pwd 
           """
         }
       }
@@ -60,23 +58,16 @@ spec:
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
         }
       }
-    }
-   
-    stage('Deploy Production') {
-      steps{
-        container('kubectl') {
-
-        }
-      }
-    }
+    } 
     stage('Deploy Dev') {
-
-      }
       steps {
         container('kubectl') {
-
+          
+          sh "kubectl --help"
+         
         }
       }
     }
   }
+}
 
