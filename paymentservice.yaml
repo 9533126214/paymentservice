@@ -30,13 +30,13 @@ spec:
       - name: server
         image: paymentservice
         ports:
-        - containerPort: 50051
+        - containerPort: 8181
         envFrom:
         - configMapRef:
             name: lightstep-configmap
         env:
         - name: PORT
-          value: "50051"
+          value: "8181"
         # Lightstep config
         - name: LS_SERVICE_NAME
           value: paymentservice
@@ -69,5 +69,5 @@ spec:
     app: paymentservice
   ports:
   - name: grpc
-    port: 50051
-    targetPort: 50051
+    port: 8181
+    targetPort: 8181
