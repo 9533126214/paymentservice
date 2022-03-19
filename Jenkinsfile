@@ -24,7 +24,7 @@ spec:
   # Use service account that can deploy to all namespaces
   # serviceAccountName: cd-jenkins
   containers:
-  - name: java
+  - name: golang
     image: openjdk:latest
     command:
     - cat
@@ -45,7 +45,7 @@ spec:
   stages {
     stage('build') {
       steps {
-        container('java') {
+        container('golang') {
           sh """
             ln -s `pwd` /go/src/sample-app
             cd /go/src/sample-app
