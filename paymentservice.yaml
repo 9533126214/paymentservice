@@ -28,7 +28,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: paymentservice
+        image: gcr.io/indigo-history-337312/pay:latest
         ports:
         - containerPort: 8181
         envFrom:
