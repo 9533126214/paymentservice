@@ -5,7 +5,7 @@ pipeline {
     APP_NAME = "pay"
     FE_SVC_NAME = "${APP_NAME}-payment"
     CLUSTER = "way2die"
-    CLUSTER_ZONE = "us-central1-c"
+    CLUSTER_ZONE = "us-east4-b"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     JENKINS_CRED = "${PROJECT}"
   }
