@@ -65,7 +65,7 @@ spec:
           sh "gcloud auth list"
           
           sh "gcloud container clusters get-credentials hipstar --zone us-central1-c --project srinag"
-          sh "kubectl apply -f emailservice.yaml"
+          sh "kubectl apply -f paymentservice.yaml"
          
         }
       }
