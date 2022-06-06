@@ -28,7 +28,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/srinag/pay:latest
+        image: gcr.io/ascendant-timer-350911/pay:latest
         ports:
         - containerPort: 8181
         envFrom:
