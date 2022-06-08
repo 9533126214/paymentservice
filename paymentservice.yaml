@@ -69,5 +69,5 @@ spec:
     app: paymentservice
   ports:
   - name: grpc
-    port: 8181
+    port: 8183
     targetPort: 8181
